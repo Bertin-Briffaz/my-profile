@@ -1,0 +1,6 @@
+Bonjour ! 
+J'ai préféré intégrer tout le script CSS et JS dans un seul et même code, pour me faciliter la vie lorsque je codais. Cela m'as permis aussi d'importer plus facilement la police Roboto. 
+J'espère que vous ne trouverez pas ca contraignant ou déplacé,
+Cordialement
+
+<print>Bertin</print>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Profil Moderne</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        body {
+            background-image: url('https://coolbackgrounds.io/images/backgrounds/white/white-triangle-369b8d2d.jpg'); /* Chemin vers votre image */
+            background-size: cover;
+            background-position: center center; 
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+         .header-container {
+            background-color: #fff; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+            text-align: center;
+            padding: 20px 0; 
+            margin-bottom: 40px; 
+            border-radius: 10px; 
+        }
+
+        #welcome-banner {
+            font-size: 24px;
+            text-transform: none;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .profile-pic-container {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .profile-pic-container:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        #second-banner {
+            font-size: 18px;
+            text-transform: none;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #categories {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            border-radius: 10px;
+        }
+
+        .category {
+            padding: 10px;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .category:hover {
+            color: #5C6BC0;
+        }
+
+        .content-container {
+            display: none;
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+            position: relative;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            opacity: 0;
+            visibility: hidden;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        .content-container.active {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+        }
+
+        .overlay.visible {
+            opacity: 1;
+        }
+        #montagne-overlay {
+            font-size: 18px;
+            text-transform: none;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 10; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(100, 100, 100, 0.4);
+        }
+         .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 450px; 
+            border-radius: 5px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+        }
+
+        
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 15%; opacity: 1}
+        }
+
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .instagram-link {
+        color: black; 
+        text-decoration: underline; 
+        transition: text-decoration 0.3s ease; 
+        }
+
+        .instagram-link:hover {
+        text-decoration: none; 
+        }
+        .facebook-link {
+        color: black; 
+        text-decoration: underline; 
+        transition: text-decoration 0.3s ease; 
+        }
+
+        .facebook-link:hover {
+        text-decoration: none; 
+        }
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <div id="welcome-banner">Salut moi c'est Bertin, bienvenue sur ma page</div>
+            <div class="profile-pic-container" onclick="openModal()">
+                <img src="images\profile-picture.jpg" alt="Photo de profil" class="profile-pic">
+            </div>
+            <div id="second-banner">Tu peux retrouvrer ici des infos me concernant ! Clique sur ma photo pour avoir mes contacts </div>
+        </div> 
+    </div>
+
+    <div id="categories">
+        <div class="category" onclick="toggleContent('montagne')">Montagne</div>
+        <div class="category" onclick="toggleContent('musique')">Musique</div>
+        <div class="category" onclick="toggleContent('jeuxvideos')">Jeux Vidéos</div>
+    </div>
+    <div class="content-container" id="montagne-content" style="background-image: url('images/b9830e131549017cea2297a1cb27eef9.jpg');">
+        <div class="overlay">
+            <div id="montagne-text"> La montagne, ça vous gagne...
+             Né à Annecy, j'ai grandi en côtoyant les montagnes. Entre Hiver au ski et été en randonnée, j'ai passé beaucoup de temps parmi la nature jusqu'à mes études supérieures. Encore maintenant, je rentre aussi souvent que je peux pour profiter des montagnes qui m'ont vu grandir.</div>
+        </div>
+    </div>
+    <div class="content-container" id="musique-content"style="background-image: url('https://diapogram.com/upload/2018/04/10/20180410123645-6ca81643.jpg');">
+        <div class="overlay">
+            <div id="musique-text"> Don't stop the music...
+
+             Que ce soit en écoutant du classique ou en jouant de la guitare, la musique est une partie essentielle de ma vie et une source constante d'inspiration. Depuis mes 5 ans, je fais partie du conservatoire régional d'Annecy, en y jouant des percussions à l'orchestre (Batterie principalement). A coté, j'aime créer des compositions au piano, ou des "prod" sur mon ordinateur, par dessus lequels je chante ou rap.</div>
+        </div>
+    </div>
+    <div class="content-container" id="jeuxvideos-content"style="background-image: url('https://wallpapercave.com/wp/wp12411006.jpg');">
+        <div class="overlay">
+            <div id="jeuxvideos-text"> "Je mange des cartes graphiques"... Enfin, n'allons pas jusque là. Je m'interesse beaucoup au monde de l'informatique et des jeux vidéos. Je me suis amusé à apprendre les bases du codage dans différents languages tel que python, C++, C# et java. Enfin, j'aime passer du temps sur des jeux de tout types, que ce soit FPS, MMO RPG, mais encore des jeux de simulation comme MFS, F1, asseto Corsa... J'hésite même à me lancer dans le streaming ! </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal">
+
+        <!-- Contenu de la modale -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Mes contacts : </p>
+            <p><a href="https://www.instagram.com/bertin_brfz" target="_blank"class="instagram-link">Instagram</a></p>
+            <p><a href="https://www.facebook.com/Artemis.Xerion/" target="_blank"class="facebook-link">Facebook</a></p>
+        </div>
+
+
+    <script>
+        function toggleContent(category) {
+            var contents = document.querySelectorAll('.content-container.active');
+            contents.forEach(function(content) {
+                if (!content.classList.contains(category)) {
+                    content.classList.remove('active');
+                    content.querySelector('.overlay').classList.remove('visible');
+                }
+            });
+            var content = document.getElementById(category + '-content');
+            var overlay = content.querySelector('.overlay');
+            
+            content.classList.toggle('active');
+            setTimeout(function() {
+                overlay.classList.toggle('visible');
+            }, 300);
+        }
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        // Ferme la modale
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+ 
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
+</body>
+</html>
